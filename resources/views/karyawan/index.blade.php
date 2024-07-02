@@ -79,17 +79,18 @@
     <div class="main-content">
         <h1>Data Karyawan</h1>
         <select id="cabangFilter">
-            <option value="">Select cabang</option>
-            <option value="Sanan Kulon">Sanan Kulon</option>
-            <option value="Ponggok">Ponggok</option>
-            <option value="Wonodadi">Wonodadi</option>
-            <option value="Kademangan">Kademangan</option>
-            <option value="Srengat">Srengat</option>
-        </select>
+    <option value="Sanan Kulon">Sanan Kulon</option>
+    <option value="Ponggok">Ponggok</option>
+    <option value="Wonodadi">Wonodadi</option>
+    <option value="Kademangan">Kademangan</option>
+    <option value="Srengat" selected>Srengat</option>
+</select>
+
         <table>
             <thead>
                 <tr>
                     <th>Nama</th>
+                    <th>Cabang</th>
                     <th>Bulan</th>
                     <th>Gaji Pokok</th>
                     <th>Intensif</th>
@@ -102,6 +103,7 @@
                 @foreach($karyawan as $employee)
                 <tr>
                     <td>{{ $employee->nama }}</td>
+                    <td>{{ $employee->cabang }}</td>
                     <td>{{ $employee->bulan }}</td>
                     <td>{{ $employee->gaji_pokok }}</td>
                     <td>{{ $employee->intensif }}</td>
@@ -116,15 +118,15 @@
             </tbody>
         </table>
     </div>
-
     <script>
-        document.getElementById('cabangFilter').addEventListener('change', function() {
-            const cabang = this.value;
+    document.addEventListener('DOMContentLoaded', function() {
+        const cabangFilter = document.getElementById('cabangFilter');
+        const fetchData = (cabang) => {
             fetch(`/karyawan?cabang=${cabang}`)
                 .then(response => response.json())
                 .then(data => {
                     const tbody = document.getElementById('employeeData');
-                    tbody.innerHTML = '';
+                    tbody.innerHTML = ''; // Clear the current table data
                     data.forEach(employee => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
@@ -141,8 +143,19 @@
                         `;
                         tbody.appendChild(row);
                     });
-                });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        };
+
+        // Fetch data when the page loads
+        fetchData(cabangFilter.value);
+
+        // Fetch data when the dropdown value changes
+        cabangFilter.addEventListener('change', function() {
+            fetchData(this.value);
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
