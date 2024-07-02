@@ -65,19 +65,19 @@
     </style>
 </head>
 <body>
-<div class="sidebar">
+    <div class="sidebar">
         <h2>Aplikasi Gaji Pos Indonesia</h2>
         <p>Dino Esza<br>Admin</p>
-        <a href="{{ route('karyawan.index') }}">Data Karyawan</a>
-        <a href="{{ route('pengiriman.index') }}">Pengiriman</a>
-        <a href="{{ route('potongan.index') }}">Potongan</a>
-        <a href="{{ route('insentif.index') }}">Insentif Gaji</a>
-        <a href="{{ route('laporan.index') }}">Laporan Gaji</a>
-        <a href="{{ route('settings.index') }}">Settings</a>
+        <a href="#">Data Karyawan</a>
+        <a href="#">Pengiriman</a>
+        <a href="#">Potongan</a>
+        <a href="#">Insentif Gaji</a>
+        <a href="#">Laporan Gaji</a>
+        <a href="#">Settings</a>
         <a href="#">Log Out</a>
     </div>
     <div class="main-content">
-        <h1>Data Laporan Gaji</h1>
+        <h1>Data Karyawan</h1>
         <form method="GET" action="{{ url('karyawan') }}">
             <select id="cabangFilter" name="cabang" onchange="this.form.submit()">
                 <option value="Sanan Kulon" {{ $selectedCabang == 'Sanan Kulon' ? 'selected' : '' }}>Sanan Kulon</option>

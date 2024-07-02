@@ -16,4 +16,31 @@ class KaryawanController extends Controller
         
         return view('karyawan.index', ['karyawan' => $karyawan, 'selectedCabang' => $cabang]);
     }
+
+    public function edit($id)
+    {
+        $karyawan = Karyawan::find($id);
+        return view('karyawan.edit', ['karyawan' => $karyawan]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $karyawan = Karyawan::find($id);
+        $karyawan->nama = $request->input('nama');
+        $karyawan->bulan = $request->input('bulan');
+        $karyawan->gaji_pokok = $request->input('gaji_pokok');
+        $karyawan->intensif = $request->input('intensif');
+        $karyawan->potongan = $request->input('potongan');
+        $karyawan->save();
+        
+        return redirect()->route('karyawan.index');
+    }
+
+    public function destroy($id)
+    {
+        $karyawan = Karyawan::find($id);
+        $karyawan->delete();
+        
+        return redirect()->route('karyawan.index');
+    }
 }

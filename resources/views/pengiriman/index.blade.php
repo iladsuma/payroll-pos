@@ -65,20 +65,20 @@
     </style>
 </head>
 <body>
-<div class="sidebar">
+    <div class="sidebar">
         <h2>Aplikasi Gaji Pos Indonesia</h2>
         <p>Dino Esza<br>Admin</p>
-        <a href="{{ route('karyawan.index') }}">Data Karyawan</a>
-        <a href="{{ route('pengiriman.index') }}">Pengiriman</a>
-        <a href="{{ route('potongan.index') }}">Potongan</a>
-        <a href="{{ route('insentif.index') }}">Insentif Gaji</a>
-        <a href="{{ route('laporan.index') }}">Laporan Gaji</a>
-        <a href="{{ route('settings.index') }}">Settings</a>
+        <a href="#">Data Karyawan</a>
+        <a href="#">Pengiriman</a>
+        <a href="#">Potongan</a>
+        <a href="#">Insentif Gaji</a>
+        <a href="#">Laporan Gaji</a>
+        <a href="#">Settings</a>
         <a href="#">Log Out</a>
     </div>
     <div class="main-content">
-        <h1>Data Laporan Gaji</h1>
-        <form method="GET" action="{{ url('karyawan') }}">
+        <h1>Data Pengiriman Barang</h1>
+        <form method="GET" action="{{ url('pengiriman') }}">
             <select id="cabangFilter" name="cabang" onchange="this.form.submit()">
                 <option value="Sanan Kulon" {{ $selectedCabang == 'Sanan Kulon' ? 'selected' : '' }}>Sanan Kulon</option>
                 <option value="Ponggok" {{ $selectedCabang == 'Ponggok' ? 'selected' : '' }}>Ponggok</option>
@@ -91,24 +91,21 @@
             <thead>
                 <tr>
                     <th>Nama</th>
+                    <th>Resi</th>
                     <th>Cabang</th>
-                    <th>Bulan</th>
-                    <th>Gaji Pokok</th>
-                    <th>Intensif</th>
-                    <th>Potongan</th>
-                    <th>Total Gaji</th>
+                    <th>Tanggal Pengiriman</th>
+                    <th>Jumlah</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody id="employeeData">
-                @foreach($karyawan as $employee)
+                @foreach($pengiriman as $employee)
                 <tr>
                     <td>{{ $employee->nama }}</td>
                     <td>{{ $employee->cabang }}</td>
                     <td>{{ $employee->bulan }}</td>
                     <td>{{ $employee->gaji_pokok }}</td>
                     <td>{{ $employee->intensif }}</td>
-                    <td>{{ $employee->potongan }}</td>
                     <td>{{ $employee->gaji_pokok + $employee->intensif - $employee->potongan }}</td>
                     <td>
                         <button class="edit">Edit</button>
