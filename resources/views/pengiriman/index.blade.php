@@ -39,6 +39,8 @@
         .main-content table {
             width: 100%;
             border-collapse: collapse;
+            background-color: #0d3454;
+            color: white;
         }
         .main-content table th, .main-content table td {
             padding: 10px;
@@ -47,6 +49,7 @@
         }
         .main-content table th {
             background-color: #f2f2f2;
+            color: black;
         }
         .main-content button {
             padding: 5px 10px;
@@ -62,18 +65,39 @@
             background-color: #f44336;
             color: white;
         }
+        .main-content .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .main-content .top-bar form {
+            display: inline;
+        }
+        .main-content .top-bar select {
+            padding: 5px;
+            margin-right: 10px;
+        }
+        .main-content .top-bar .add-data-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4caf50;
+            color: white;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="sidebar">
-        <h2>Aplikasi Gaji Pos Indonesia</h2>
+    <h2>Aplikasi Gaji Pos Indonesia</h2>
         <p>Dino Esza<br>Admin</p>
-        <a href="#">Data Karyawan</a>
-        <a href="#">Pengiriman</a>
-        <a href="#">Potongan</a>
-        <a href="#">Insentif Gaji</a>
-        <a href="#">Laporan Gaji</a>
-        <a href="#">Settings</a>
+        <a href="{{ route('karyawan.index') }}">Data Karyawan</a>
+        <a href="{{ route('pengiriman.index') }}">Pengiriman</a>
+        <a href="{{ route('potongan.index') }}">Potongan</a>
+        <a href="{{ route('insentif.index') }}">Insentif Gaji</a>
+        <a href="{{ route('laporan.index') }}">Laporan Gaji</a>
+        <a href="{{ route('settings.index') }}">Settings</a>
         <a href="#">Log Out</a>
     </div>
     <div class="main-content">
@@ -87,6 +111,7 @@
                 <option value="Srengat" {{ $selectedCabang == 'Srengat' ? 'selected' : '' }}>Srengat</option>
             </select>
         </form>
+        <button class="add-data-btn" onclick="window.location.href='{{ route('pengiriman.create') }}'">Tambah Data</button>
         <table>
             <thead>
                 <tr>
@@ -94,22 +119,27 @@
                     <th>Resi</th>
                     <th>Cabang</th>
                     <th>Tanggal Pengiriman</th>
-                    <th>Jumlah</th>
+                    <th>Jumlah Barang yang Dikirim</th>
+                    <th>Insentif</th>
                     <th>Actions</th>
                 </tr>
             </thead>
-            <tbody id="employeeData">
-                @foreach($pengiriman as $employee)
+            <tbody>
+                @foreach($pengiriman as $item)
                 <tr>
-                    <td>{{ $employee->nama }}</td>
-                    <td>{{ $employee->cabang }}</td>
-                    <td>{{ $employee->bulan }}</td>
-                    <td>{{ $employee->gaji_pokok }}</td>
-                    <td>{{ $employee->intensif }}</td>
-                    <td>{{ $employee->gaji_pokok + $employee->intensif - $employee->potongan }}</td>
+                    <td>{{ $item->nama }}</td>
+                    <td>{{ $item->resi }}</td>
+                    <td>{{ $item->cabang }}</td>
+                    <td>{{ $item->tanggal_pengiriman }}</td>
+                    <td>{{ $item->jumlah_pengiriman }}</td>
+                    <td>{{ $item->insentif }}</td>
                     <td>
-                        <button class="edit">Edit</button>
-                        <button class="delete">Delete</button>
+                        <button class="edit-btn" onclick="window.location.href='{{ route('pengiriman.edit', $item->id) }}'">Edit</button>
+                        <form action="{{ route('pengiriman.destroy', $item->id) }}" method="POST" style="display:inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="delete-btn">Delete</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach

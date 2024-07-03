@@ -43,4 +43,24 @@ class KaryawanController extends Controller
         
         return redirect()->route('karyawan.index');
     }
+    public function create()
+    {
+        return view('karyawan.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'cabang' => 'required|string|max:255',
+            'bulan' => 'required|string|max:255',
+            'gaji_pokok' => 'required|numeric',
+            'intensif' => 'required|numeric',
+            'potongan' => 'required|numeric',
+        ]);
+
+        Karyawan::create($validatedData);
+
+        return redirect()->route('karyawan.index')->with('success', 'Data Karyawan berhasil ditambahkan.');
+    }
 }

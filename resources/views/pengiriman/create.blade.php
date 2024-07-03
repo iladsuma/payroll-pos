@@ -3,79 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Pengiriman</title>
+    <title>Tambah Data Pengiriman</title>
     <style>
         body {
             background-color: #f8f8f8;
             font-family: Arial, sans-serif;
         }
-        .sidebar {
-            width: 200px;
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            background-color: #f2f2f2;
+        .container {
+            width: 600px;
+            margin: 50px auto;
             padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        .sidebar h2 {
-            font-size: 18px;
+        .container h1 {
+            text-align: center;
             margin-bottom: 20px;
         }
-        .sidebar a {
-            display: block;
-            margin: 10px 0;
-            color: #333;
-            text-decoration: none;
+        .form-group {
+            margin-bottom: 15px;
         }
-        .main-content {
-            margin-left: 220px;
-            padding: 20px;
-        }
-        .main-content h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
-        }
-        .main-content form {
-            max-width: 600px;
-        }
-        .main-content form label {
+        .form-group label {
             display: block;
             margin-bottom: 5px;
         }
-        .main-content form input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 8px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+            box-sizing: border-box;
         }
-        .main-content form button {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
+        .form-group button {
+            display: block;
+            width: 100%;
+            padding: 10px;
             background-color: #4caf50;
             color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+        }
+        .form-group button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h2>Aplikasi Gaji Pos Indonesia</h2>
-        <p>Dino Esza<br>Admin</p>
-        <a href="{{ url('pengiriman') }}">Data pengiriman</a>
-        <a href="#">Pengiriman</a>
-        <a href="#">Potongan</a>
-        <a href="#">Insentif Gaji</a>
-        <a href="#">Laporan Gaji</a>
-        <a href="#">Settings</a>
-        <a href="#">Log Out</a>
-    </div>
-    <div class="main-content">
-        <h1>Edit pengiriman</h1>
-        <form action="{{ route('pengiriman.update', $pengiriman->id) }}" method="POST">
-        @csrf
+    <div class="container">
+        <h1>Tambah Data Pengiriman</h1>
+        <form action="{{ route('pengiriman.store') }}" method="POST">
+            @csrf
             <div class="form-group">
                 <label for="nama">Nama</label>
                 <input type="text" id="nama" name="nama" required>
@@ -106,5 +83,6 @@
                 <button type="submit">Simpan</button>
             </div>
         </form>
+    </div>
 </body>
 </html>

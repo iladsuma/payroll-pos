@@ -1,65 +1,61 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Potongan;
 
 class PotonganController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $potongan = Potongan::all();
+        return view('potongan.index', compact('potongan'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('potongan.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'potongan' => 'required|string|max:255',
+            'jumlah' => 'required|integer',
+        ]);
+
+        $validatedData['total_potongan'] = $validatedData['jumlah'] * 5000;
+
+        potongan::create($validatedData);
+
+        return redirect()->route('potongan.index')->with('success', 'Data Potongan berhasil ditambahkan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit($id)
     {
-        //
+        $potongan = potongan::findOrFail($id);
+        return view('potongan.edit', compact('potongan'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'potongan' => 'required|string|max:255',
+            'jumlah' => 'required|integer',
+        ]);
+
+        $validatedData['total_potongan'] = $validatedData['jumlah'] * 5000;
+
+        potongan::whereId($id)->update($validatedData);
+
+        return redirect()->route('potongan.index')->with('success', 'Data Potongan berhasil diupdate.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function destroy($id)
     {
-        //
-    }
+        $potongan = potongan::findOrFail($id);
+        $potongan->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('potongan.index')->with('success', 'Data Potongan berhasil dihapus.');
     }
 }

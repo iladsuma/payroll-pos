@@ -7,59 +7,59 @@ use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $cabang = $request->query('cabang', 'Srengat'); // Set default value to 'Srengat'
+        
+        $karyawan = Karyawan::where('cabang', $cabang)->get();
+        
+        return view('karyawan.index', ['karyawan' => $karyawan, 'selectedCabang' => $cabang]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    public function edit($id)
+    {
+        $karyawan = Karyawan::find($id);
+        return view('karyawan.edit', ['karyawan' => $karyawan]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $karyawan = Karyawan::find($id);
+        $karyawan->nama = $request->input('nama');
+        $karyawan->bulan = $request->input('bulan');
+        $karyawan->gaji_pokok = $request->input('gaji_pokok');
+        $karyawan->intensif = $request->input('intensif');
+        $karyawan->potongan = $request->input('potongan');
+        $karyawan->save();
+        
+        return redirect()->route('karyawan.index');
+    }
+
+    public function destroy($id)
+    {
+        $karyawan = Karyawan::find($id);
+        $karyawan->delete();
+        
+        return redirect()->route('karyawan.index');
+    }
     public function create()
     {
-        //
+        return view('karyawan.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
+        $validatedData = $request->validate([
+            'nama' => 'required|string|max:255',
+            'cabang' => 'required|string|max:255',
+            'bulan' => 'required|string|max:255',
+            'gaji_pokok' => 'required|numeric',
+            'intensif' => 'required|numeric',
+            'potongan' => 'required|numeric',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
+        Karyawan::create($validatedData);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return redirect()->route('karyawan.index')->with('success', 'Data Karyawan berhasil ditambahkan.');
     }
 }
