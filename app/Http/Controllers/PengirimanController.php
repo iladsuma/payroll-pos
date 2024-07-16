@@ -10,13 +10,22 @@ use App\Models\Pengiriman;
 class PengirimanController extends Controller
 {
     public function index(Request $request)
-    {
-        $cabang = $request->query('cabang', 'Srengat'); // Set default value to 'Srengat'
-        
-        $pengiriman = Pengiriman::where('cabang', $cabang)->get(); // Menggunakan model Pengiriman
-        
-        return view('pengiriman.index', ['pengiriman' => $pengiriman, 'selectedCabang' => $cabang]);
+{
+    $selectedCabang = $request->query('cabang', 'Srengat'); // Ambil nilai cabang dari request, default ke 'Srengat'
+    
+    if ($selectedCabang === 'semua') {
+        $pengirimans = Pengiriman::with('karyawan')->get(); // Ambil semua data pengiriman dengan relasi karyawan
+    } else {
+        $pengirimans = Pengiriman::with('karyawan')
+            ->whereHas('karyawan', function ($query) use ($selectedCabang) {
+                $query->where('cabang', $selectedCabang);
+            })
+            ->get(); // Ambil data pengiriman berdasarkan cabang yang dipilih
     }
+    
+    return view('pengiriman.index', compact('pengirimans', 'selectedCabang'));
+}
+
     
     public function edit($id)
     {
@@ -27,7 +36,7 @@ class PengirimanController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|string|max:255',
+
             'resi' => 'required|string|max:255',
             'cabang' => 'required|string|max:255',
             'tanggal_pengiriman' => 'required|date',
@@ -56,7 +65,7 @@ class PengirimanController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|string|max:255',
+
             'resi' => 'required|string|max:255',
             'cabang' => 'required|string|max:255',
             'tanggal_pengiriman' => 'required|date',

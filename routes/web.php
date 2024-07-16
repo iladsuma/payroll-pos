@@ -53,13 +53,11 @@ Route::post('settings', [SettingsController::class, 'store'])->name('settings.st
 
 Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
 Route::get('laporan/edit/{id}', [LaporanController::class, 'edit'])->name('laporan.edit');
-Route::get('laporan/edit/{id}', [LaporanController::class, 'edit'])->name('laporan.edit');
 Route::post('laporan/update/{id}', [LaporanController::class, 'update'])->name('laporan.update');
 Route::delete('laporan/delete/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy');
 Route::get('laporan/create', [LaporanController::class, 'create'])->name('laporan.create');
 Route::post('laporan', [LaporanController::class, 'store'])->name('laporan.store');
-
-
+Route::get('laporan/cetak/{id}', [LaporanController::class, 'cetak'])->name('laporan.cetak');
 
 
 

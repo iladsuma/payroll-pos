@@ -9,15 +9,15 @@ class Karyawan extends Model
 {
     use HasFactory;
 
-    protected $table = 'karyawan';
+    protected $fillable = ['nama', 'cabang', 'gaji_pokok', 'absensi', 'insentif'];
 
-    protected $fillable = [
-        'nama',
-        'bulan',
-        'gaji_pokok',
-        'intensif',
-        'potongan',
-        'resi',
-        'cabang',
-    ];
+    public function pengirimans()
+    {
+        return $this->hasMany(Pengiriman::class);
+    }
+
+    public function potongans()
+    {
+        return $this->hasMany(Potongan::class, 'karyawan_id');
+    }
 }

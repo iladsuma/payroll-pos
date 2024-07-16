@@ -9,13 +9,17 @@ use App\Models\Karyawan;
 class KaryawanController extends Controller
 {
     public function index(Request $request)
-    {
-        $cabang = $request->query('cabang', 'Srengat'); // Set default value to 'Srengat'
-        
-        $karyawan = Karyawan::where('cabang', $cabang)->get();
-        
-        return view('karyawan.index', ['karyawan' => $karyawan, 'selectedCabang' => $cabang]);
+{
+    $cabang = $request->query('cabang', 'Srengat'); // Set default value to 'Srengat'
+    
+    if ($cabang === 'semua') {
+        $karyawan = Karyawan::all(); // Ambil semua data karyawan
+    } else {
+        $karyawan = Karyawan::where('cabang', $cabang)->get(); // Ambil data karyawan berdasarkan cabang
     }
+    
+    return view('karyawan.index', ['karyawan' => $karyawan, 'selectedCabang' => $cabang]);
+}
 
     public function edit($id)
     {
@@ -27,10 +31,7 @@ class KaryawanController extends Controller
     {
         $karyawan = Karyawan::find($id);
         $karyawan->nama = $request->input('nama');
-        $karyawan->bulan = $request->input('bulan');
         $karyawan->gaji_pokok = $request->input('gaji_pokok');
-        $karyawan->intensif = $request->input('intensif');
-        $karyawan->potongan = $request->input('potongan');
         $karyawan->save();
         
         return redirect()->route('karyawan.index');

@@ -61,15 +61,14 @@
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h2>Aplikasi Gaji Pos Indonesia</h2>
+<div class="sidebar">
+    <h2>Aplikasi Gaji Pos Indonesia</h2>
         <p>Dino Esza<br>Admin</p>
-        <a href="{{ url('karyawan') }}">Data Karyawan</a>
-        <a href="#">Pengiriman</a>
-        <a href="#">Potongan</a>
-        <a href="#">Insentif Gaji</a>
-        <a href="#">Laporan Gaji</a>
-        <a href="#">Settings</a>
+        <a href="{{ route('karyawan.index') }}">Data Karyawan</a>
+        <a href="{{ route('pengiriman.index') }}">Pengiriman</a>
+        <a href="{{ route('potongan.index') }}">Potongan</a>
+        <a href="{{ route('laporan.index') }}">Laporan Gaji</a>
+        <a href="{{ route('settings.index') }}">Settings</a>
         <a href="#">Log Out</a>
     </div>
     <div class="main-content">
@@ -79,18 +78,10 @@
             <label for="nama">Nama</label>
             <input type="text" id="nama" name="nama" value="{{ $karyawan->nama }}">
             
-            <label for="bulan">Bulan</label>
-            <input type="text" id="bulan" name="bulan" value="{{ $karyawan->bulan }}">
             
             <label for="gaji_pokok">Gaji Pokok</label>
             <input type="text" id="gaji_pokok" name="gaji_pokok" value="{{ $karyawan->gaji_pokok }}">
-            
-            <label for="intensif">Intensif</label>
-            <input type="text" id="intensif" name="intensif" value="{{ $karyawan->intensif }}">
-            
-            <label for="potongan">Potongan</label>
-            <input type="text" id="potongan" name="potongan" value="{{ $karyawan->potongan }}">
-            
+
             <button type="submit">Update</button>
         </form>
     </div>

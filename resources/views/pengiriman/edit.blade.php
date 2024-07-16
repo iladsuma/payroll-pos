@@ -61,50 +61,35 @@
     </style>
 </head>
 <body>
-    <div class="sidebar">
-        <h2>Aplikasi Gaji Pos Indonesia</h2>
+<div class="sidebar">
+    <h2>Aplikasi Gaji Pos Indonesia</h2>
         <p>Dino Esza<br>Admin</p>
-        <a href="{{ url('pengiriman') }}">Data pengiriman</a>
-        <a href="#">Pengiriman</a>
-        <a href="#">Potongan</a>
-        <a href="#">Insentif Gaji</a>
-        <a href="#">Laporan Gaji</a>
-        <a href="#">Settings</a>
+        <a href="{{ route('karyawan.index') }}">Data Karyawan</a>
+        <a href="{{ route('pengiriman.index') }}">Pengiriman</a>
+        <a href="{{ route('potongan.index') }}">Potongan</a>
+        <a href="{{ route('laporan.index') }}">Laporan Gaji</a>
+        <a href="{{ route('settings.index') }}">Settings</a>
         <a href="#">Log Out</a>
     </div>
     <div class="main-content">
         <h1>Edit pengiriman</h1>
         <form action="{{ route('pengiriman.update', $pengiriman->id) }}" method="POST">
         @csrf
-            <div class="form-group">
-                <label for="nama">Nama</label>
-                <input type="text" id="nama" name="nama" required>
-            </div>
-            <div class="form-group">
-                <label for="resi">Resi</label>
-                <input type="text" id="resi" name="resi" required>
-            </div>
-            <div class="form-group">
-                <label for="cabang">Cabang</label>
-                <select id="cabang" name="cabang" required>
-                    <option value="Sanan Kulon">Sanan Kulon</option>
-                    <option value="Ponggok">Ponggok</option>
-                    <option value="Wonodadi">Wonodadi</option>
-                    <option value="Kademangan">Kademangan</option>
-                    <option value="Srengat">Srengat</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="tanggal_pengiriman">Tanggal Pengiriman</label>
-                <input type="date" id="tanggal_pengiriman" name="tanggal_pengiriman" required>
-            </div>
-            <div class="form-group">
-                <label for="jumlah_pengiriman">Jumlah Pengiriman</label>
-                <input type="number" id="jumlah_pengiriman" name="jumlah_pengiriman" required>
-            </div>
-            <div class="form-group">
-                <button type="submit">Simpan</button>
-            </div>
+
+<div class="form-group">
+    <label for="resi">Resi</label>
+    <input type="text" id="resi" name="resi" value="{{ $pengiriman->resi }}" required>
+</div>
+
+<div class="form-group">
+    <label for="tanggal_pengiriman">Tanggal Pengiriman</label>
+    <input type="date" id="tanggal_pengiriman" name="tanggal_pengiriman" value="{{ $pengiriman->tanggal_pengiriman }}" required>
+</div>
+<div class="form-group">
+    <label for="jumlah_pengiriman">Jumlah Pengiriman</label>
+    <input type="number" id="jumlah_pengiriman" name="jumlah_pengiriman" value="{{ $pengiriman->jumlah_pengiriman }}" required>
+</div>
+<button type="submit">Update</button>
         </form>
 </body>
 </html>
