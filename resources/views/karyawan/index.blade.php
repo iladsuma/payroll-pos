@@ -160,8 +160,7 @@
                 <tr>
                     <td>{{ $employee->nama }}</td>
                     <td>{{ $employee->cabang }}</td>
-            
-                    <td>{{ $employee->gaji_pokok }}</td>
+                    <td>{{ number_format($employee->gaji_pokok, 2, ',', '.') }}</td>
                   
                     <td>
                     <button class="edit" onclick="window.location.href='{{ route('karyawan.edit', $employee->id) }}'">Edit</button>

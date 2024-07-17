@@ -48,14 +48,23 @@
         }
     </style>
 </head>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tambah Data Pengiriman</title>
+</head>
 <body>
     <div class="container">
         <h1>Tambah Data Pengiriman</h1>
         <form action="{{ route('pengiriman.store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="nama">Nama</label>
-                <input type="text" id="nama" name="nama" required>
+                <label for="karyawan_id">Nama Karyawan</label>
+                <select id="karyawan_id" name="karyawan_id" required>
+                    @foreach($karyawans as $karyawan)
+                        <option value="{{ $karyawan->id }}">{{ $karyawan->nama }}</option>
+                    @endforeach
+                </select>
             </div>
             <div class="form-group">
                 <label for="resi">Resi</label>

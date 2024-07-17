@@ -33,7 +33,7 @@ class PotonganController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'karyawan_id' => 'required|exists:karyawan,id',
+     
             'potongan' => 'required|string|max:255',
             'jumlah' => 'required|integer',
         ]);
@@ -55,7 +55,6 @@ class PotonganController extends Controller
         \Log::info('Request data: ', $request->all());
 
         $validatedData = $request->validate([
-            'karyawan_id' => 'required|exists:karyawan,id',
             'potongan' => 'required|string|max:255',
             'jumlah' => 'required|integer',
         ]);

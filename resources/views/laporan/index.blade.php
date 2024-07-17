@@ -159,12 +159,13 @@
                     <td>{{ $employee->nama }}</td>
                     <td>{{ $employee->cabang }}</td>
                     <td>{{ $employee->bulan }}</td>
-                    <td>{{ $employee->gaji_pokok }}</td>
-                    <td>{{ $employee->intensif * 3000 }}</td>
-                    <td>{{ $employee->potongan * 5000 }}</td>
-                    <td>{{ $employee->gaji_pokok + $employee->intensif * 3000 - $employee->potongan * 5000 }}</td>
-                    <td>
+                    <td>{{ number_format($employee->gaji_pokok, 2, ',', '.') }}</td>
+    <td>{{ number_format($employee->intensif*3000, 2, ',', '.') }}</td>
+    <td>{{ number_format($employee->potongan*5000, 2, ',', '.') }}</td>
 
+                    <td>{{ number_format($employee->gaji_pokok + $employee->intensif * 3000 - $employee->potongan * 5000, 2, ',', '.') }}</td>
+                    <td>
+                  
     <a href="{{ route('laporan.cetak', $employee->id) }}" class="btn btn-primary">Cetak PDF</a>
 </td>
 
@@ -173,10 +174,7 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="pagination">
-            <button>1</button>
-            <button>2</button>
-        </div>
+   
     </div>
 </body>
 </html>

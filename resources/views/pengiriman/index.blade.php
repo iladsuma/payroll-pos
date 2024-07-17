@@ -175,10 +175,6 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="pagination">
-            <button>1</button>
-            <button>2</button>
-        </div>
     </div>
 </body>
 </html>
