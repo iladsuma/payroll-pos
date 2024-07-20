@@ -69,7 +69,7 @@
         <a href="{{ route('potongan.index') }}">Potongan</a>
         <a href="{{ route('laporan.index') }}">Laporan Gaji</a>
         <a href="{{ route('settings.index') }}">Settings</a>
-        <a href="#">Log Out</a>
+        <a href="{{ route('logout') }}">Log Out</a>
     </div>
     <div class="main-content">
         <h1>Edit Potongan</h1>

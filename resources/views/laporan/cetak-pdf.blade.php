@@ -2,14 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Laporan Gaji</title>
+    <title>Slip Gaji Karyawan</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+        .header, .footer {
+            text-align: center;
+            margin-bottom: 20px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 20px;
         }
         table, th, td {
             border: 1px solid black;
@@ -18,35 +24,66 @@
             padding: 8px;
             text-align: left;
         }
+        .section-title {
+            font-weight: bold;
+        }
+        .total-row th, .total-row td {
+            font-weight: bold;
+        }
+        .amount {
+            text-align: right;
+        }
     </style>
 </head>
 <body>
-    <h1>Laporan Gaji</h1>
+    @foreach($laporanGaji as $gaji)
+    <div class="header">
+        <h1>PT. PERSERO POS INDONESIA</h1>
+        <h2>CABANG {{ strtoupper($gaji->cabang) }}</h2>
+        <h3>SLIP GAJI KARYAWAN</h3>
+     
+    </div>
+
     <table>
-        <thead>
-            <tr>
-                <th>Nama</th>
-                <th>Cabang</th>
-                <th>Bulan</th>
-                <th>Gaji Pokok</th>
-                <th>Intensif</th>
-                <th>Potongan</th>
-                <th>Total Gaji</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($laporanGaji as $gaji)
-                <tr>
-                    <td>{{ $gaji->nama }}</td>
-                    <td>{{ $gaji->cabang }}</td>
-                    <td>{{ $gaji->bulan }}</td>
-                    <td>{{ $gaji->gaji_pokok }}</td>
-                    <td>{{ $gaji->intensif * 3000 }}</td>
-                    <td>{{ $gaji->potongan * 5000 }}</td>
-                    <td>{{ $gaji->gaji_pokok + $gaji->intensif * 3000 - $gaji->potongan * 5000 }}</td>
-                </tr>
-            @endforeach
-        </tbody>
+        <tr>
+            <th>Nama</th>
+            <td>{{ $gaji->nama }}</td>
+        </tr>
+      
+    
     </table>
+
+    <h4 class="section-title">PENGHASILAN</h4>
+    <table>
+        <tr>
+            <th>Gaji Pokok</th>
+            <td class="amount">Rp {{ number_format($gaji->gaji_pokok, 0, ',', '.') }}</td>
+        </tr>
+
+        <tr>
+            <th>Bonus Target</th>
+            <td class="amount">Rp {{ number_format($gaji->intensif*3000, 2, ',', '.') }}</td>
+        </tr>
+        <tr class="total-row">
+            <th>Total (A)</th>
+            <td class="amount">Rp {{ number_format($gaji->gaji_pokok + $gaji->intensif * 3000 - $gaji->potongan * 5000, 2, ',', '.') }}</td>
+        </tr>
+    </table>
+
+    <h4 class="section-title">POTONGAN</h4>
+    <table>
+   
+    </table>
+
+    <h4 class="section-title">PENERIMAAN BERSIH (A - B)</h4>
+    <table>
+        <tr class="total-row">
+            <th>Total</th>
+            <td class="amount">Rp {{ number_format($gaji->gaji_pokok + $gaji->intensif * 3000 - $gaji->potongan * 5000, 2, ',', '.') }}</td>
+        </tr>
+    </table>
+
+    <hr>
+    @endforeach
 </body>
 </html>

@@ -30,12 +30,12 @@ class PotonganController extends Controller
         return view('potongan.create', compact('karyawans'));
     }
 
-    public function store(Request $request)
+      public function store(Request $request)
     {
         $validatedData = $request->validate([
-     
+            'karyawan_id' => 'required|exists:karyawans,id',
             'potongan' => 'required|string|max:255',
-            'jumlah' => 'required|integer',
+            'jumlah' => 'required|numeric',
         ]);
 
         Potongan::create($validatedData);
@@ -46,28 +46,23 @@ class PotonganController extends Controller
     public function edit($id)
     {
         $potongan = Potongan::findOrFail($id);
-        $karyawans = Karyawan::all(); // Get all karyawan for selection
+        $karyawans = Karyawan::all();
         return view('potongan.edit', compact('potongan', 'karyawans'));
     }
 
     public function update(Request $request, $id)
     {
-        \Log::info('Request data: ', $request->all());
-
         $validatedData = $request->validate([
             'potongan' => 'required|string|max:255',
-            'jumlah' => 'required|integer',
+            'jumlah' => 'required|numeric',
+   
         ]);
 
-        \Log::info('Validated data: ', $validatedData);
-
-        $potongan = Potongan::findOrFail($id);
-        $potongan->update($validatedData);
-
-        \Log::info('Updated Potongan: ', $potongan->toArray());
+        Potongan::whereId($id)->update($validatedData);
 
         return redirect()->route('potongan.index')->with('success', 'Data Potongan berhasil diupdate.');
     }
+
 
     public function destroy($id)
     {

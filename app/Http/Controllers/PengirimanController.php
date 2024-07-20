@@ -44,7 +44,6 @@ class PengirimanController extends Controller
             'jumlah_pengiriman' => 'required|integer',
         ]);
 
-        $validatedData['insentif'] = $validatedData['jumlah_pengiriman'] * 5000;
 
         Pengiriman::create($validatedData);
 
@@ -60,14 +59,11 @@ class PengirimanController extends Controller
     public function update(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'karyawan_id' => 'required|exists:karyawans,id',
             'resi' => 'required|string|max:255',
-            'cabang' => 'required|string|max:255',
             'tanggal_pengiriman' => 'required|date',
             'jumlah_pengiriman' => 'required|integer',
         ]);
 
-        $validatedData['insentif'] = $validatedData['jumlah_pengiriman'] * 5000;
 
         Pengiriman::whereId($id)->update($validatedData);
 

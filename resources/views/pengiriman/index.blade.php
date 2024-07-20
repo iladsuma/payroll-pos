@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Karyawan</title>
     <style>
-        body {
+      body {
             background-color: #f8f8f8;
-            font-family: Arial, sans-serif;
+            font-family: Anonymous Pro, Anonymous Pro;
         }
         .sidebar {
             width: 200px;
@@ -38,7 +38,6 @@
             color: #333;
             text-decoration: none;
             background-color: #fff;
-       
             text-align: center;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
@@ -48,7 +47,6 @@
         .main-content {
             margin-left: 220px;
             padding: 100px;
-            background-color: #27476d;
             border-radius: 8px;
             box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
             min-height: 100vh;
@@ -95,8 +93,14 @@
             background-color: #f37a7a;
             color: white;
         }
+            .main-content .add-button-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
         .main-content button.add {
-            background-color: #80d1ff;
+            background-color: #80D1FF;
             color: white;
             padding: 10px 15px;
             font-size: 14px;
@@ -117,6 +121,75 @@
             border-radius: 4px;
             margin: 0 5px;
         }
+        .header .search-container {
+            margin-top: 20px;
+        }
+        .header .search-container input {
+            padding: 8px;
+            font-size: 14px;
+            width: 300px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        
+        .table-container {
+            background-color: #27476d;
+            padding: 20px;
+          
+            box-shadow: 0 0 100px rgba(0, 0, 0, 0.1);
+            margin-top: 21px;
+            min-height: 700px; /* Adjust this height as needed */
+        }
+        .table-container table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table-container table th, .table-container table td {
+            padding: 10px;
+            background-color: #ffffff;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .table-container table th {
+            background-color: #ebebeb;
+        }
+        .table-container button {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        .table-container button.edit {
+            background-color: #80d1ff;
+            color: white;
+        }
+        .table-container button.delete {
+            background-color: #f37a7a;
+            color: white;
+        }
+        .table-container button.add {
+            background-color: #80d1ff;
+            color: white;
+            padding: 10px 15px;
+            font-size: 14px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .table-container .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .table-container .pagination button {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 4px;
+            margin: 0 5px;
+        }
     </style>
 </head>
 <body>
@@ -127,10 +200,14 @@
         <a href="{{ route('pengiriman.index') }}">Pengiriman</a>
         <a href="{{ route('potongan.index') }}">Potongan</a>
         <a href="{{ route('laporan.index') }}">Laporan Gaji</a>
-        <a href="#">Log Out</a>
+        <a href="{{ route('logout') }}">Log Out</a>
     </div>
     <div class="main-content">
+    <div class="top-bar">
         <h1>Data Pengiriman Barang</h1>
+
+        </div>
+        <div class="table-container">
         <form method="GET" action="{{ url('pengiriman') }}">
     <select id="cabangFilter" name="cabang" onchange="this.form.submit()">
         <option value="semua" {{ $selectedCabang == 'semua' ? 'selected' : '' }}>Semua</option>
@@ -175,6 +252,7 @@
                 @endforeach
             </tbody>
         </table>
+        </div>
     </div>
 </body>
 </html>

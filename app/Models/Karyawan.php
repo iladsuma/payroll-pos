@@ -9,7 +9,7 @@ class Karyawan extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama', 'cabang', 'gaji_pokok', 'absensi', 'insentif'];
+    protected $fillable = ['nama','cabang', 'gaji_pokok', 'absensi', 'insentif'];
 
     public function pengirimans()
     {

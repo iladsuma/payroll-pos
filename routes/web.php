@@ -8,7 +8,7 @@ use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login', function () {
+Route::get('/', function () {
     return view('auth.login');
 })->name('login');
 
@@ -67,3 +67,7 @@ Route::post('/login', function () {
     // Authentication logic
     return redirect()->route('karyawan.index');
 });
+Route::post('/logout', function () {
+    Auth::logout();
+    return redirect('/');
+})->name('logout');
