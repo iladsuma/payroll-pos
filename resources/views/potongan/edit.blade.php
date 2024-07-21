@@ -75,6 +75,7 @@
         <h1>Edit Potongan</h1>
         <form action="{{ route('potongan.update', $potongan->id) }}" method="POST">
         @csrf
+    @method('PUT') <!-- This is crucial for a PUT request -->
     <div class="form-group">
     <label for="potongan">Potongan</label>
     <input type="text" id="potongan" name="potongan" value="{{ $potongan->potongan }}" required>

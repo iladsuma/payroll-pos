@@ -75,6 +75,7 @@
         <h1>Edit pengiriman</h1>
         <form action="{{ route('pengiriman.update', $pengiriman->id) }}" method="POST">
         @csrf
+        @method('PUT') <!-- This is crucial for a PUT request -->
 
 <div class="form-group">
     <label for="resi">Resi</label>

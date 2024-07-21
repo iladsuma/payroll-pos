@@ -74,7 +74,8 @@
     <div class="main-content">
         <h1>Edit Karyawan</h1>
         <form action="{{ route('karyawan.update', $karyawan->id) }}" method="POST">
-            @csrf
+        @csrf
+        @method('PUT') <!-- This is crucial for a PUT request -->
             <label for="nama">Nama</label>
             <input type="text" id="nama" name="nama" value="{{ $karyawan->nama }}">
             

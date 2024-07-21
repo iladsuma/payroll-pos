@@ -58,16 +58,16 @@ class PengirimanController extends Controller
 
     public function update(Request $request, $id)
     {
-        $validatedData = $request->validate([
-            'resi' => 'required|string|max:255',
+        $request->validate([
+            'resi' => 'required|string',
             'tanggal_pengiriman' => 'required|date',
             'jumlah_pengiriman' => 'required|integer',
         ]);
 
+        $pengiriman = Pengiriman::findOrFail($id);
+        $pengiriman->update($request->all());
 
-        Pengiriman::whereId($id)->update($validatedData);
-
-        return redirect()->route('pengiriman.index')->with('success', 'Data Pengiriman berhasil diupdate.');
+        return redirect()->route('pengiriman.index')->with('success', 'Pengiriman updated successfully.');
     }
 
     public function destroy($id)
