@@ -61,8 +61,12 @@
         </tr>
 
         <tr>
-            <th>Bonus Target</th>
+            <th>Intensif</th>
             <td class="amount">Rp {{ number_format($gaji->intensif*3000, 2, ',', '.') }}</td>
+        </tr>
+        <tr>
+            <th>Potongan</th>
+            <td class="amount">Rp {{ number_format($gaji->potongan*5000, 2, ',', '.') }}</td>
         </tr>
         <tr class="total-row">
             <th>Total (A)</th>

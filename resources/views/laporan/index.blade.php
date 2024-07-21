@@ -228,7 +228,6 @@
                 <tr>
                     <th>Nama</th>
                     <th>Cabang</th>
-                    <th>Bulan</th>
                     <th>Gaji Pokok</th>
                     <th>Intensif</th>
                     <th>Potongan</th>
@@ -241,7 +240,6 @@
                 <tr>
                     <td>{{ $employee->nama }}</td>
                     <td>{{ $employee->cabang }}</td>
-                    <td>{{ $employee->bulan }}</td>
                     <td>{{ number_format($employee->gaji_pokok, 2, ',', '.') }}</td>
     <td>{{ number_format($employee->intensif*3000, 2, ',', '.') }}</td>
     <td>{{ number_format($employee->potongan*5000, 2, ',', '.') }}</td>

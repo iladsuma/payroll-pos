@@ -234,12 +234,14 @@
                     <td>{{ $item->jumlah }}</td>
                     <td>{{ $item->jumlah * 5000}}</td>
                     <td>
-                        <button class="edit" onclick="window.location.href='{{ route('potongan.edit', $item->id) }}'">Edit</button>
-                        <form action="{{ route('potongan.destroy', $item->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="delete">Delete</button>
-                        </form>
+                        <form action="{{ route('potongan.edit', $item->id) }}" method="GET" style="display:inline;">
+                    <button type="submit" class="edit">Edit</button>
+                </form>
+                <form action="{{ route('potongan.destroy', $item->id) }}" method="POST" style="display:inline;">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="delete">Delete</button>
+                </form>
                     </td>
                 </tr>
                 @endforeach

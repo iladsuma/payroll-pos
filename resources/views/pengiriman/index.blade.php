@@ -218,7 +218,7 @@
         <option value="Srengat" {{ $selectedCabang == 'Srengat' ? 'selected' : '' }}>Srengat</option>
     </select>
         </form>
-        <button class="add" onclick="window.location.href='{{ route('pengiriman.create') }}'">Tambah Data</button>
+       
         <table>
             <thead>
                 <tr>

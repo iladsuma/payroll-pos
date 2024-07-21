@@ -7,67 +7,54 @@ use App\Http\Controllers\InsentifController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\SettingsController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
+// Login Route
 Route::get('/', function () {
     return view('auth.login');
 })->name('login');
 
+// Handle login post request and redirect
+Route::post('/login', function (\Illuminate\Http\Request $request) {
+    $credentials = $request->only('email', 'password');
+    
+    if (Auth::attempt($credentials)) {
+        // Authentication passed, redirect to karyawan index
+        return redirect()->route('karyawan.index');
+    }
 
-Route::get('karyawan', [KaryawanController::class, 'index'])->name('karyawan.index');
-Route::get('karyawan/edit/{id}', [KaryawanController::class, 'edit'])->name('karyawan.edit');
-Route::post('karyawan/update/{id}', [KaryawanController::class, 'update'])->name('karyawan.update');
-Route::delete('karyawan/delete/{id}', [KaryawanController::class, 'destroy'])->name('karyawan.destroy');
-Route::get('karyawan/create', [KaryawanController::class, 'create'])->name('karyawan.create');
-Route::post('karyawan', [KaryawanController::class, 'store'])->name('karyawan.store');
+    // Authentication failed, redirect back to login with error
+    return redirect()->route('login')->withErrors(['email' => 'Invalid credentials.']);
+})->name('login.post');
 
-Route::get('pengiriman', [PengirimanController::class, 'index'])->name('pengiriman.index');
-Route::get('pengiriman/edit/{id}', [PengirimanController::class, 'edit'])->name('pengiriman.edit');
-Route::post('pengiriman/update/{id}', [PengirimanController::class, 'update'])->name('pengiriman.update');
-Route::delete('pengiriman/delete/{id}', [PengirimanController::class, 'destroy'])->name('pengiriman.destroy');
-Route::get('pengiriman/create', [PengirimanController::class, 'create'])->name('pengiriman.create');
-Route::post('pengiriman', [PengirimanController::class, 'store'])->name('pengiriman.store');
-
-Route::get('potongan', [PotonganController::class, 'index'])->name('potongan.index');
-Route::get('potongan/edit/{id}', [PotonganController::class, 'edit'])->name('potongan.edit');
-Route::get('potongan/edit/{id}', [PotonganController::class, 'edit'])->name('potongan.edit');
-Route::post('potongan/update/{id}', [PotonganController::class, 'update'])->name('potongan.update');
-Route::delete('potongan/delete/{id}', [PotonganController::class, 'destroy'])->name('potongan.destroy');
-Route::get('potongan/create', [PotonganController::class, 'create'])->name('potongan.create');
-Route::post('potongan', [PotonganController::class, 'store'])->name('potongan.store');
-
-Route::get('insentif', [InsentifController::class, 'index'])->name('insentif.index');
-Route::get('insentif/edit/{id}', [InsentifController::class, 'edit'])->name('insentif.edit');
-Route::get('insentif/edit/{id}', [InsentifController::class, 'edit'])->name('insentif.edit');
-Route::post('insentif/update/{id}', [InsentifController::class, 'update'])->name('insentif.update');
-Route::delete('insentif/delete/{id}', [InsentifController::class, 'destroy'])->name('insentif.destroy');
-Route::get('insentif/create', [InsentifController::class, 'create'])->name('insentif.create');
-Route::post('insentif', [InsentifController::class, 'store'])->name('insentif.store');
-
-Route::get('settings', [SettingsController::class, 'index'])->name('settings.index');
-Route::get('settings/edit/{id}', [SettingsController::class, 'edit'])->name('settings.edit');
-Route::get('settings/edit/{id}', [SettingsController::class, 'edit'])->name('settings.edit');
-Route::post('settings/update/{id}', [SettingsController::class, 'update'])->name('settings.update');
-Route::delete('settings/delete/{id}', [SettingsController::class, 'destroy'])->name('settings.destroy');
-Route::get('settings/create', [SettingsController::class, 'create'])->name('settings.create');
-Route::post('settings', [SettingsController::class, 'store'])->name('settings.store');
-
-Route::get('laporan', [LaporanController::class, 'index'])->name('laporan.index');
-Route::get('laporan/edit/{id}', [LaporanController::class, 'edit'])->name('laporan.edit');
-Route::post('laporan/update/{id}', [LaporanController::class, 'update'])->name('laporan.update');
-Route::delete('laporan/delete/{id}', [LaporanController::class, 'destroy'])->name('laporan.destroy');
-Route::get('laporan/create', [LaporanController::class, 'create'])->name('laporan.create');
-Route::post('laporan', [LaporanController::class, 'store'])->name('laporan.store');
-Route::get('laporan/cetak/{id}', [LaporanController::class, 'cetak'])->name('laporan.cetak');
-
-
-
-
-
-Route::post('/login', function () {
-    // Authentication logic
-    return redirect()->route('karyawan.index');
-});
+// Logout Route
 Route::post('/logout', function () {
     Auth::logout();
     return redirect('/');
 })->name('logout');
+
+// Karyawan Resource Routes
+Route::resource('karyawan', KaryawanController::class);
+
+// Pengiriman Resource Routes
+Route::resource('pengiriman', PengirimanController::class);
+
+// Potongan Resource Routes
+Route::resource('potongan', PotonganController::class);
+
+// Insentif Resource Routes
+Route::resource('insentif', InsentifController::class);
+
+// Settings Resource Routes
+Route::resource('settings', SettingsController::class);
+
+// Laporan Resource Routes
+Route::resource('laporan', LaporanController::class);
+
+// Additional Laporan Route for Printing
+Route::get('laporan/cetak/{id}', [LaporanController::class, 'cetak'])->name('laporan.cetak');
+
+// Fallback Route
+Route::fallback(function () {
+    return redirect()->route('login');
+});

@@ -60,28 +60,17 @@
             <div class="form-group">
                 <label for="cabang">Cabang</label>
                 <select id="cabang" name="cabang" required>
-                    <option value="Sanan Kulon">Sanan Kulon</option>
+                    <option value="Sanankulon">Sanankulon</option>
                     <option value="Ponggok">Ponggok</option>
                     <option value="Wonodadi">Wonodadi</option>
                     <option value="Kademangan">Kademangan</option>
                     <option value="Srengat">Srengat</option>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="bulan">Bulan</label>
-                <input type="text" id="bulan" name="bulan" required>
-            </div>
+       
             <div class="form-group">
                 <label for="gaji_pokok">Gaji Pokok</label>
                 <input type="number" id="gaji_pokok" name="gaji_pokok" required>
-            </div>
-            <div class="form-group">
-                <label for="intensif">Intensif</label>
-                <input type="number" id="intensif" name="intensif" required>
-            </div>
-            <div class="form-group">
-                <label for="potongan">Potongan</label>
-                <input type="number" id="potongan" name="potongan" required>
             </div>
             <div class="form-group">
                 <button type="submit">Simpan</button>

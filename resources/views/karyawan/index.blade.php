@@ -241,7 +241,7 @@
                   
                     <td>
                     <button class="edit" onclick="window.location.href='{{ route('karyawan.edit', $employee->id) }}'">Edit</button>
-                        <form action="{{ route('pengiriman.destroy', $employee->id) }}" method="POST" style="display:inline;">
+                    <form action="{{ route('karyawan.destroy', $employee->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="delete">Delete</button>

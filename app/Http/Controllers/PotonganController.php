@@ -45,10 +45,10 @@ class PotonganController extends Controller
 
     public function edit($id)
     {
-        $potongan = Potongan::findOrFail($id);
-        $karyawans = Karyawan::all();
-        return view('potongan.edit', compact('potongan', 'karyawans'));
+        $potongan = Potongan::find($id);
+        return view('potongan.edit', compact('potongan'));
     }
+    
 
     public function update(Request $request, $id)
     {

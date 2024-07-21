@@ -36,14 +36,31 @@ class KaryawanController extends Controller
         
         return redirect()->route('karyawan.index');
     }
-
     public function destroy($id)
     {
-        $karyawan = Karyawan::find($id);
-        $karyawan->delete();
+        \Log::info('Attempting to delete Karyawan with ID: ' . $id);
         
-        return redirect()->route('karyawan.index');
+        // Try to find the Karyawan record
+        $karyawan = Karyawan::find($id);
+    
+        // Check if the record exists
+        if ($karyawan) {
+            try {
+                // Attempt to delete the record
+                $karyawan->delete();
+                \Log::info('Successfully deleted Karyawan with ID: ' . $id);
+                return redirect()->route('karyawan.index')->with('success', 'Data karyawan berhasil dihapus');
+            } catch (\Exception $e) {
+                // Log any exceptions during deletion
+                \Log::error('Error deleting Karyawan with ID: ' . $id . ' - ' . $e->getMessage());
+                return redirect()->route('karyawan.index')->with('error', 'Terjadi kesalahan saat menghapus data karyawan');
+            }
+        } else {
+            \Log::error('Karyawan not found with ID: ' . $id);
+            return redirect()->route('karyawan.index')->with('error', 'Data karyawan tidak ditemukan');
+        }
     }
+    
     public function create()
     {
         return view('karyawan.create');
@@ -54,10 +71,8 @@ class KaryawanController extends Controller
         $validatedData = $request->validate([
             'nama' => 'required|string|max:255',
             'cabang' => 'required|string|max:255',
-            'bulan' => 'required|string|max:255',
             'gaji_pokok' => 'required|numeric',
-            'intensif' => 'required|numeric',
-            'potongan' => 'required|numeric',
+        
         ]);
 
         Karyawan::create($validatedData);
